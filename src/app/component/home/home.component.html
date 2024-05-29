@@ -1,0 +1,24 @@
+<h2>Welcome {{userClaim.userName}}</h2>
+<p>Your Roles</p>
+<ul>
+    <li *ngFor="let authority of userClaim.authorities">{{authority}}</li>
+</ul>
+<div class = "employee-container">
+    <button (click)="getEmployees()">Fetch Employees</button>
+    <table *ngIf="(homeState$|async)?.employees?.length != 0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Designation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of (homeState$ |async)?.employees">
+                <td>{{employee.name}}</td>
+                <td>{{employee.company}}</td>
+                <td>{{employee.designation}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

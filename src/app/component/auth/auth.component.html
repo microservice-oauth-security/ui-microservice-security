@@ -1,0 +1,23 @@
+<div class="auth-form">
+    <asl-google-signin-button type="standard" size="large" style="display: inline-block;"/>
+    <div class="divider">
+        <span class="innert-text">or</span>
+    </div>
+    <form (ngSubmit)="onLoginSubmit()" [formGroup]="loginForm" [hidden]="hideLogin">
+        <input type="text" placeholder="UserName" formControlName="userName">
+        <input type = "password" placeholder="Password" formControlName="password">
+        <button [disabled]="loginForm.invalid"  type="submit">LOGIN</button>
+        <p>Not a member? <a href="#" (click)="hideLogin=true; $event.preventDefault();">Sign Up</a></p>
+    </form> 
+    <form (ngSubmit)="onSignUpSubmit()" [formGroup]="signUpForm" [hidden]="!hideLogin">
+        <input type="text" placeholder="UserName" formControlName="userName">
+        <input type = "password" placeholder="Password" formControlName="password">
+        <input type = "password" placeholder="Confirm Password" formControlName="confirmPassword">
+        <span class="error-message" *ngIf="signUpForm.errors?.['passwordNoMatch']">Password doesnot match</span>
+        <button [disabled]="signUpForm.invalid" type="submit">SIGN UP</button>
+        <p>Already a member? <a href="#" (click)="hideLogin=false; $event.preventDefault();">Login</a></p>
+    </form>
+    <div class="error-message" *ngIf="(authState$ |async)?.error">
+        <p>{{(authState$ |async)?.error}}</p>
+    </div>
+</div>
